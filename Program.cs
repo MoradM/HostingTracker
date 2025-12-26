@@ -22,7 +22,7 @@ namespace HostingTracker
 
         private static async Task MainAsync()
         {
-            
+            // Placeholder for when I want to initialize async things on app start.
         }
     }
 }

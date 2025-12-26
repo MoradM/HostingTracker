@@ -24,6 +24,8 @@ namespace HostingTracker
         {
             if(!string.IsNullOrEmpty(t_hostingerKey.Text))
             {
+                // TODO: Make this generic by dependency injection
+                // and fetching the different providers.
                 string apiKey = t_hostingerKey.Text;
                 IHostingService hostinger = new HostingerService(apiKey);
                 var hostingerDomains = await hostinger.GetDomains();
