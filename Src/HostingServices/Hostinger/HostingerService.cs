@@ -30,25 +30,14 @@ namespace HostingTracker.Src.HostingServices.Hostinger
 
         public async Task<IList<Domain>> GetDomains()
         {
-            IList<Domain> result = [];
-
-            try
-            {
-                var parsedHostingerDomains = await CallHostingerApi<IList<HostingerDomain>>("api/domains/v1/portfolio");
-                IList<Domain> domains = 
-                    parsedHostingerDomains.Select<HostingerDomain, Domain>(domain => 
-                    new Domain(
-                        domain.path,
-                        domain.expiration != null ? DateTime.Parse(domain.expiration) : DateTime.MinValue))
-                    .ToList();
-                return domains;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error getting domains from Hostinger: {Msg}", ex.Message);
-            }
-
-            return null;
+            var parsedHostingerDomains = await CallHostingerApi<IList<HostingerDomain>>("api/domains/v1/portfolio");
+            IList<Domain> domains = 
+                parsedHostingerDomains.Select<HostingerDomain, Domain>(domain => 
+                new Domain(
+                    domain.path,
+                    domain.expiration != null ? DateTime.Parse(domain.expiration) : DateTime.MinValue))
+                .ToList();
+            return domains;
         }
 
         public Task<IList<HostingProduct>> GetProducts()
