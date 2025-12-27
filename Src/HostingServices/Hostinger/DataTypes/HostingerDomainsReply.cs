@@ -15,6 +15,8 @@ namespace HostingTracker.Src.HostingServices.Hostinger.DataTypes
         public string path { get; set; }
         [JsonPropertyName("expires_at")]
         public string? expiration { get; set; }
+        [JsonPropertyName("type")]
+        public string type { get; set; }
     }
 
     public class HostingerDomainsReply

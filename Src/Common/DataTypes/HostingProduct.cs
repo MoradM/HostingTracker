@@ -18,9 +18,9 @@ namespace HostingTracker.Src.Common.DataTypes
         private readonly string _name;
         private readonly HostingType _type;
         private readonly DateTime _expiration;
-        private readonly bool _isAutoRenewed;
+        private readonly bool? _isAutoRenewed;
 
-        public HostingProduct(string name, HostingType type, DateTime expiration, bool isAutoRenewed)
+        public HostingProduct(string name, HostingType type, DateTime expiration, bool? isAutoRenewed)
         {
             _name = name;
             _type = type;
@@ -43,7 +43,7 @@ namespace HostingTracker.Src.Common.DataTypes
             return _expiration;
         }
 
-        public bool IsAutoRenewed()
+        public bool? IsAutoRenewed()
         {
             return _isAutoRenewed;
         }

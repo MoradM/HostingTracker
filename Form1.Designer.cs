@@ -31,11 +31,13 @@
             l_hostingerKey = new Label();
             t_hostingerKey = new TextBox();
             b_fetch = new Button();
-            g_Domains = new DataGridView();
-            Domain = new DataGridViewTextBoxColumn();
-            Expiration = new DataGridViewTextBoxColumn();
+            g_Products = new DataGridView();
             Provider = new DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)g_Domains).BeginInit();
+            IsAutoRenewed = new DataGridViewTextBoxColumn();
+            Type = new DataGridViewTextBoxColumn();
+            Expiration = new DataGridViewTextBoxColumn();
+            Product = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)g_Products).BeginInit();
             SuspendLayout();
             // 
             // l_hostingerKey
@@ -57,7 +59,7 @@
             // 
             // b_fetch
             // 
-            b_fetch.Location = new Point(580, 15);
+            b_fetch.Location = new Point(784, 15);
             b_fetch.Name = "b_fetch";
             b_fetch.Size = new Size(75, 23);
             b_fetch.TabIndex = 2;
@@ -65,23 +67,35 @@
             b_fetch.UseVisualStyleBackColor = true;
             b_fetch.Click += button1_Click;
             // 
-            // g_Domains
+            // g_Products
             // 
-            g_Domains.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            g_Domains.Columns.AddRange(new DataGridViewColumn[] { Domain, Expiration, Provider });
-            g_Domains.Location = new Point(12, 99);
-            g_Domains.Name = "g_Domains";
-            g_Domains.Size = new Size(643, 339);
-            g_Domains.TabIndex = 3;
-            g_Domains.CellContentClick += dataGridView1_CellContentClick;
+            g_Products.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            g_Products.Columns.AddRange(new DataGridViewColumn[] { Product, Expiration, Type, IsAutoRenewed, Provider });
+            g_Products.Location = new Point(12, 99);
+            g_Products.Name = "g_Products";
+            g_Products.Size = new Size(854, 339);
+            g_Products.TabIndex = 3;
+            g_Products.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // Domain
+            // Provider
             // 
-            Domain.HeaderText = "Domain";
-            Domain.Name = "Domain";
-            Domain.ReadOnly = true;
-            Domain.Resizable = DataGridViewTriState.False;
-            Domain.Width = 300;
+            Provider.HeaderText = "Provider";
+            Provider.Name = "Provider";
+            Provider.ReadOnly = true;
+            Provider.Resizable = DataGridViewTriState.False;
+            Provider.Width = 125;
+            // 
+            // IsAutoRenewed
+            // 
+            IsAutoRenewed.HeaderText = "IsAutoRenewed";
+            IsAutoRenewed.Name = "IsAutoRenewed";
+            IsAutoRenewed.ReadOnly = true;
+            // 
+            // Type
+            // 
+            Type.HeaderText = "Type";
+            Type.Name = "Type";
+            Type.ReadOnly = true;
             // 
             // Expiration
             // 
@@ -91,19 +105,20 @@
             Expiration.Resizable = DataGridViewTriState.False;
             Expiration.Width = 200;
             // 
-            // Provider
+            // Product
             // 
-            Provider.HeaderText = "Provider";
-            Provider.Name = "Provider";
-            Provider.ReadOnly = true;
-            Provider.Resizable = DataGridViewTriState.False;
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            Product.ReadOnly = true;
+            Product.Resizable = DataGridViewTriState.False;
+            Product.Width = 300;
             // 
             // HostingTracker
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(666, 450);
-            Controls.Add(g_Domains);
+            ClientSize = new Size(871, 450);
+            Controls.Add(g_Products);
             Controls.Add(b_fetch);
             Controls.Add(t_hostingerKey);
             Controls.Add(l_hostingerKey);
@@ -111,7 +126,7 @@
             Name = "HostingTracker";
             Text = "HostingTracker";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)g_Domains).EndInit();
+            ((System.ComponentModel.ISupportInitialize)g_Products).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -121,9 +136,11 @@
         private Label l_hostingerKey;
         private TextBox t_hostingerKey;
         private Button b_fetch;
-        private DataGridView g_Domains;
-        private DataGridViewTextBoxColumn Domain;
+        private DataGridView g_Products;
+        private DataGridViewTextBoxColumn Product;
         private DataGridViewTextBoxColumn Expiration;
+        private DataGridViewTextBoxColumn Type;
+        private DataGridViewTextBoxColumn IsAutoRenewed;
         private DataGridViewTextBoxColumn Provider;
     }
 }

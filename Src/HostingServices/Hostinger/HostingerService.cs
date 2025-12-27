@@ -28,25 +28,65 @@ namespace HostingTracker.Src.HostingServices.Hostinger
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
         }
 
-        public async Task<IList<HostingProduct>> GetProducts()
+        public async Task<IList<HostingProduct>> GetHostingProducts()
         {
+            IList<HostingProduct> products = new List<HostingProduct>();
+
+            // For webhosting, we must call subs api.
             var subs = await CallHostingerApi<IList<HostingerSub>>("api/billing/v1/subscriptions");
-            var domainSubs = subs.Where(sub => sub.name.ToLower().Contains("domain"));
-            var vmSubs = subs.Where(sub => sub.name.ToLower().Contains("kvm"));
+
+            // Gather web hosting
             var webHostingSubs = subs.Where(sub => sub.name.ToLower().Contains("hosting"));
-            return null;
+            foreach (var webHosting in webHostingSubs)
+            {
+                products.Add(new HostingProduct(
+                    webHosting.name,
+                    HostingType.WebHosting,
+                    webHosting.expiration != null ? DateTime.Parse(webHosting.expiration) : DateTime.MinValue,
+                    webHosting.is_auto_renewed
+                ));
+            }
+
+            // Get domains
+            var domains = (await GetDomains());
+            foreach (var domain in domains)
+            {
+                if (!domain.type.ToLower().Contains("free_domain"))
+                {
+                    products.Add(new HostingProduct(
+                        domain.path,
+                        HostingType.Domain,
+                        domain.expiration != null ? DateTime.Parse(domain.expiration) : DateTime.MinValue,
+                        null // Hostinger API does not provide auto-renew info for domains - we map this to unknown in the form
+                    ));
+                }
+            }
+
+            // Get VMs
+            // For VMS, we can map expires_at and is auto renewed from subs api
+            var vms = await GetVMs();
+            foreach (var vm in vms)
+            {
+                var vmSub = subs.Where(sub => sub.id == vm.subscriptionId).First();
+                products.Add(new HostingProduct(
+                    vm.hostname,
+                    HostingType.VPS,
+                    vmSub?.expiration != null ? DateTime.Parse(vmSub.expiration) : DateTime.MinValue,
+                    vmSub?.is_auto_renewed
+                ));
+            }
+
+            return products;
         }
 
-        public async Task<IList<Domain>> GetDomains()
+        private async Task<IList<HostingerDomain>> GetDomains()
         {
-            var parsedHostingerDomains = await CallHostingerApi<IList<HostingerDomain>>("api/domains/v1/portfolio");
-            IList<Domain> domains = 
-                parsedHostingerDomains.Select<HostingerDomain, Domain>(domain => 
-                new Domain(
-                    domain.path,
-                    domain.expiration != null ? DateTime.Parse(domain.expiration) : DateTime.MinValue))
-                .ToList();
-            return domains;
+            return await CallHostingerApi<IList<HostingerDomain>>("api/domains/v1/portfolio");
+        }
+
+        private async Task<IList<HostingerVM>> GetVMs()
+        {
+            return await CallHostingerApi<IList<HostingerVM>>("api/vps/v1/virtual-machines");
         }
 
         private async Task<T> CallHostingerApi<T>(string endpoint)
