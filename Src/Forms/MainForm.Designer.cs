@@ -32,11 +32,14 @@
             t_hostingerKey = new TextBox();
             b_fetch = new Button();
             g_Products = new DataGridView();
-            Provider = new DataGridViewTextBoxColumn();
-            IsAutoRenewed = new DataGridViewTextBoxColumn();
-            Type = new DataGridViewTextBoxColumn();
-            Expiration = new DataGridViewTextBoxColumn();
             Product = new DataGridViewTextBoxColumn();
+            Expiration = new DataGridViewTextBoxColumn();
+            Type = new DataGridViewTextBoxColumn();
+            IsAutoRenewed = new DataGridViewTextBoxColumn();
+            Provider = new DataGridViewTextBoxColumn();
+            t_godaddyKey = new TextBox();
+            l_godaddyKey = new Label();
+            l_status = new Label();
             ((System.ComponentModel.ISupportInitialize)g_Products).BeginInit();
             SuspendLayout();
             // 
@@ -77,25 +80,13 @@
             g_Products.TabIndex = 3;
             g_Products.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // Provider
+            // Product
             // 
-            Provider.HeaderText = "Provider";
-            Provider.Name = "Provider";
-            Provider.ReadOnly = true;
-            Provider.Resizable = DataGridViewTriState.False;
-            Provider.Width = 125;
-            // 
-            // IsAutoRenewed
-            // 
-            IsAutoRenewed.HeaderText = "IsAutoRenewed";
-            IsAutoRenewed.Name = "IsAutoRenewed";
-            IsAutoRenewed.ReadOnly = true;
-            // 
-            // Type
-            // 
-            Type.HeaderText = "Type";
-            Type.Name = "Type";
-            Type.ReadOnly = true;
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            Product.ReadOnly = true;
+            Product.Resizable = DataGridViewTriState.False;
+            Product.Width = 300;
             // 
             // Expiration
             // 
@@ -105,19 +96,59 @@
             Expiration.Resizable = DataGridViewTriState.False;
             Expiration.Width = 200;
             // 
-            // Product
+            // Type
             // 
-            Product.HeaderText = "Product";
-            Product.Name = "Product";
-            Product.ReadOnly = true;
-            Product.Resizable = DataGridViewTriState.False;
-            Product.Width = 300;
+            Type.HeaderText = "Type";
+            Type.Name = "Type";
+            Type.ReadOnly = true;
+            // 
+            // IsAutoRenewed
+            // 
+            IsAutoRenewed.HeaderText = "IsAutoRenewed";
+            IsAutoRenewed.Name = "IsAutoRenewed";
+            IsAutoRenewed.ReadOnly = true;
+            // 
+            // Provider
+            // 
+            Provider.HeaderText = "Provider";
+            Provider.Name = "Provider";
+            Provider.ReadOnly = true;
+            Provider.Resizable = DataGridViewTriState.False;
+            Provider.Width = 125;
+            // 
+            // t_godaddyKey
+            // 
+            t_godaddyKey.Location = new Point(102, 41);
+            t_godaddyKey.Name = "t_godaddyKey";
+            t_godaddyKey.Size = new Size(241, 23);
+            t_godaddyKey.TabIndex = 4;
+            // 
+            // l_godaddyKey
+            // 
+            l_godaddyKey.AutoSize = true;
+            l_godaddyKey.Location = new Point(12, 44);
+            l_godaddyKey.Name = "l_godaddyKey";
+            l_godaddyKey.Size = new Size(81, 15);
+            l_godaddyKey.TabIndex = 5;
+            l_godaddyKey.Text = "GoDaddy Key:";
+            // 
+            // l_status
+            // 
+            l_status.AutoSize = true;
+            l_status.Location = new Point(12, 72);
+            l_status.Name = "l_status";
+            l_status.Size = new Size(64, 15);
+            l_status.TabIndex = 6;
+            l_status.Text = "Status: Idle";
             // 
             // HostingTracker
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(871, 450);
+            Controls.Add(l_status);
+            Controls.Add(l_godaddyKey);
+            Controls.Add(t_godaddyKey);
             Controls.Add(g_Products);
             Controls.Add(b_fetch);
             Controls.Add(t_hostingerKey);
@@ -142,5 +173,8 @@
         private DataGridViewTextBoxColumn Type;
         private DataGridViewTextBoxColumn IsAutoRenewed;
         private DataGridViewTextBoxColumn Provider;
+        private TextBox t_godaddyKey;
+        private Label l_godaddyKey;
+        private Label l_status;
     }
 }

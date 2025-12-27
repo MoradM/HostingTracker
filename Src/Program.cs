@@ -1,7 +1,7 @@
 using HostingTracker.Src.Common.Interfaces;
 using HostingTracker.Src.HostingServices.Hostinger;
 
-namespace HostingTracker
+namespace HostingTracker.Src
 {
     internal static class Program
     {
@@ -17,7 +17,7 @@ namespace HostingTracker
             MainAsync().GetAwaiter().GetResult();
             Application.Run(new HostingTracker());
 
-            
+
         }
 
         private static async Task MainAsync()
