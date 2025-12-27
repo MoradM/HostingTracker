@@ -28,6 +28,15 @@ namespace HostingTracker.Src.HostingServices.Hostinger
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
         }
 
+        public async Task<IList<HostingProduct>> GetProducts()
+        {
+            var subs = await CallHostingerApi<IList<HostingerSub>>("api/billing/v1/subscriptions");
+            var domainSubs = subs.Where(sub => sub.name.ToLower().Contains("domain"));
+            var vmSubs = subs.Where(sub => sub.name.ToLower().Contains("kvm"));
+            var webHostingSubs = subs.Where(sub => sub.name.ToLower().Contains("hosting"));
+            return null;
+        }
+
         public async Task<IList<Domain>> GetDomains()
         {
             var parsedHostingerDomains = await CallHostingerApi<IList<HostingerDomain>>("api/domains/v1/portfolio");
@@ -38,11 +47,6 @@ namespace HostingTracker.Src.HostingServices.Hostinger
                     domain.expiration != null ? DateTime.Parse(domain.expiration) : DateTime.MinValue))
                 .ToList();
             return domains;
-        }
-
-        public Task<IList<HostingProduct>> GetProducts()
-        {
-            throw new NotImplementedException();
         }
 
         private async Task<T> CallHostingerApi<T>(string endpoint)
