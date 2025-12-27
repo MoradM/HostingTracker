@@ -28,6 +28,11 @@ namespace HostingTracker.Src.HostingServices.Hostinger
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
         }
 
+        public string GetServiceName()
+        { 
+            return _serviceName;
+        }
+
         public async Task<IList<HostingProduct>> GetHostingProducts()
         {
             IList<HostingProduct> products = new List<HostingProduct>();

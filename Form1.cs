@@ -36,7 +36,7 @@ namespace HostingTracker
                         product.GetExpiration(),
                         product.GetHostingType().ToString(),
                         product.IsAutoRenewed() != null ? (product.IsAutoRenewed().Value ? "Yes" : "No") : "Unknown",
-                        "Hostinger");
+                        hostinger.GetServiceName());
                 }
             }
         }
