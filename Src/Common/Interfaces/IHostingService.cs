@@ -9,6 +9,7 @@ namespace HostingTracker.Src.Common.Interfaces
 {
     public interface IHostingService
     {
+        public Task<IList<HostingProduct>> GetProducts();
         public Task<IList<Domain>> GetDomains();
     }
 }

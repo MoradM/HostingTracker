@@ -34,10 +34,7 @@ namespace HostingTracker.Src.HostingServices.Hostinger
 
             try
             {
-                using HttpResponseMessage response = await _httpClient.GetAsync("api/domains/v1/portfolio");
-                response.EnsureSuccessStatusCode();
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                var parsedHostingerDomains = JsonSerializer.Deserialize<IList<HostingerDomain>>(jsonResponse);
+                var parsedHostingerDomains = await CallHostingerApi<IList<HostingerDomain>>("api/domains/v1/portfolio");
                 IList<Domain> domains = 
                     parsedHostingerDomains.Select<HostingerDomain, Domain>(domain => 
                     new Domain(
@@ -52,6 +49,29 @@ namespace HostingTracker.Src.HostingServices.Hostinger
             }
 
             return null;
+        }
+
+        public Task<IList<HostingProduct>> GetProducts()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<T> CallHostingerApi<T>(string endpoint)
+        {
+            try
+            {
+                using HttpResponseMessage response = await _httpClient.GetAsync(endpoint);
+                response.EnsureSuccessStatusCode();
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var parsedReply = JsonSerializer.Deserialize<T>(jsonResponse);
+                return parsedReply;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error calling {endpoint} from Hostinger: {ex.Message}");
+            }
+
+            return default;
         }
     }
 }
